@@ -3,6 +3,7 @@
 ////////////////////////////////////
 //Un canvas = une zone rectangulaire dans le HTML
 var canvas;
+//ctx = le contexte du canvas
 var ctx;
 
 // Variables des éléments visuels
@@ -42,13 +43,15 @@ const DOWN_KEY = 40;
 var x = new Array(MAX_SIZE);
 var y = new Array(MAX_SIZE);
 
+var myScore = 0;
+var highScore = 0;
+
 
 /////////////////////////////////////
 // Les fonctions
 ////////////////////////////////////
 // Fonction d'initialisation
 function init() {
-    console.log("--init");
     //On récupère le canvas présent dans le HTML grâce à son ID
     canvas = document.getElementById('myCanvas');
     ctx = canvas.getContext('2d');
@@ -59,9 +62,10 @@ function init() {
     setTimeout("gameCycle()", DELAY);
 }
 
+// Fonction permettant de redémarrer le jeu
 function restartGame() {
-    console.log("--restartGame");
     inGame = true;
+    myScore = 0;
     init();
 }
 
@@ -87,12 +91,16 @@ function createSnake() {
     }
 }
 
+// Fonction permettant de dessiner chaque élément du jeu
 function doDrawing() {
+    // On vide le rectangle où on joue
     ctx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
     
     if (inGame) {
+        // On dessine la nouvelle pomme
         ctx.drawImage(apple, apple_x, apple_y);
 
+        // Ici on dessine le serpent
         for (var z = 0; z < bodySize; z++) {
             if (z == 0) {
                 ctx.drawImage(head, x[z], y[z]);
@@ -105,23 +113,32 @@ function doDrawing() {
     }        
 }
 
+// Fonction permettant d'afficher le message "Game over"
 function gameOver() {
     ctx.fillStyle = 'white';
     ctx.textBaseline = 'middle'; 
     ctx.textAlign = 'center'; 
     ctx.font = 'normal bold 18px serif';
+
+    if (myScore > highScore) {
+        highScore = myScore;
+        displayHighScore();
+    }
     
     ctx.fillText('Game over', C_WIDTH/2, C_HEIGHT/2);
 }
 
+// Fonction permettant de vérifier si on a touché une pomme avec le serpent
 function checkApple() {
     if ((x[0] == apple_x) && (y[0] == apple_y)) {
 
         bodySize++;
+        myScore++;
         positionApple();
     }
 }
 
+//Fonction qui affiche le mouvement du serpent
 function move() {
     for (var z = bodySize; z > 0; z--) {
         x[z] = x[(z - 1)];
@@ -145,25 +162,31 @@ function move() {
     }
 }    
 
+// Fonction qui vérifie s'il y a une collision du serpent avec un bord ou avec lui-même
 function checkCollision() {
+    //Ici on vérifie s'il y a une collision du serpent avec lui même
+    //On boucle sur la taille du serpent
     for (var z = bodySize; z > 0; z--) {
+        //Si la coordonnée horizontale et verticale de la tête est la même que la coordonnée du corp d'index z, alors "game over"
         if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
             inGame = false;
         }
     }
 
+    //Ici on vérifie s'il y a une collision du serpent avec un bord
+    //est-ce la tête touche le bord du bas?
     if (y[0] >= C_HEIGHT) {
         inGame = false;
     }
-
+    //est-ce la tête touche le bord du haut?
     if (y[0] < 0) {
        inGame = false;
     }
-
+    //est-ce la tête touche le bord de droite?
     if (x[0] >= C_WIDTH) {
       inGame = false;
     }
-
+    //est-ce la tête touche le bord de gauche?
     if (x[0] < 0) {
       inGame = false;
     }
@@ -176,14 +199,28 @@ function positionApple() {
 
     r = Math.floor(Math.random() * MAX_RAND);
     apple_y = r * DOT_SIZE;
-}    
+}
 
+// Fonction permettant d'afficher le score
+function displayScore() {
+    document.getElementById('scoreVariable').innerHTML = myScore;
+}
+
+// Fonction permettant d'afficher le high score
+function displayHighScore() {
+    document.getElementById('highScoreVariable').innerHTML = highScore;
+}
+
+// Fonction qui est lancé dans la fonction d'init et qui boucle sur elle-même toutes les 140ms tant que inGame=true
+// (c'est-à-dire, tant que ce n'est pas "Game over")
 function gameCycle() {
     if (inGame) {
         checkApple();
         checkCollision();
         move();
         doDrawing();
+        displayScore();
+        displayHighScore();
         setTimeout("gameCycle()", DELAY);
     }
 }

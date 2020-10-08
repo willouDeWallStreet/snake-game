@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>JavaScript Snake game</title>    
-<style>
-    canvas {background: black}
-</style>
+    <head>
+        <title>SNAKE-GAME</title>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
 
-<script src="snake.js"></script>
-</head>
-    
-<body onload="init();">
-    <canvas id="myCanvas" width="300" height="300">
-    </canvas>
-</body>
+    <body onload="init()">
+        <section id="myDiv2">
+            <div id="divScore">
+                <span class="score">Score: </span><span id="scoreVariable" class="score"></span>
+            </div>
+            <div id="divHighScore">
+                <span class="highScore">High score: </span><span id="highScoreVariable" class="highScore"></span>
+            </div>
+        </section>
+        <div id="myDiv1">
+            <canvas id="myCanvas" width="400" height="300"></canvas>
+        </div>
+        <div id="myDiv3">
+            <button class="button" onclick="restartGame()">RESTART</button>
+        </div>
+    </body>
 </html>
