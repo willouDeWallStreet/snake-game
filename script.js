@@ -1,7 +1,7 @@
-
 /////////////////////////////////////
 // Les variables
 ////////////////////////////////////
+//Un canvas = une zone rectangulaire dans le HTML
 var canvas;
 var ctx;
 
@@ -24,11 +24,11 @@ var downDirection = false; // d'aller sur la droite (rightDirection, tous les au
 var inGame = true;    
 
 const DOT_SIZE = 10;
-const ALL_DOTS = 900;
+const MAX_SIZE = 900;
 const MAX_RAND = 29;
 const DELAY = 140;
 const C_HEIGHT = 300;
-const C_WIDTH = 300;    
+const C_WIDTH = 400;
 
 // Code ASCII correspondant aux touches haut, bas, gauche et droite du clavier
 const LEFT_KEY = 37;
@@ -36,8 +36,11 @@ const RIGHT_KEY = 39;
 const UP_KEY = 38;
 const DOWN_KEY = 40;
 
-var x = new Array(ALL_DOTS);
-var y = new Array(ALL_DOTS);   
+// Deux listes, x représente la taille horizontale en pixel et y représente la taille verticale en pixel
+// x[0]=la tête; x[1]=la 1ère partie du corps; x[2]=la 2ième partie du corps; ...
+// x[0]=la tête; x[1]=la 1ère partie du corps; x[2]=la 2ième partie du corps; ...
+var x = new Array(MAX_SIZE);
+var y = new Array(MAX_SIZE);
 
 
 /////////////////////////////////////
@@ -45,6 +48,8 @@ var y = new Array(ALL_DOTS);
 ////////////////////////////////////
 // Fonction d'initialisation
 function init() {
+    console.log("--init");
+    //On récupère le canvas présent dans le HTML grâce à son ID
     canvas = document.getElementById('myCanvas');
     ctx = canvas.getContext('2d');
 
@@ -52,18 +57,24 @@ function init() {
     createSnake();
     positionApple();
     setTimeout("gameCycle()", DELAY);
-}    
+}
 
-// Fonction permettant de charger les images utilisées dans le jeu
+function restartGame() {
+    console.log("--restartGame");
+    inGame = true;
+    init();
+}
+
+// Fonction permettant de charger les images utilisées dans le jeu (donc dans le HTML)
 function loadImages() {
     head = new Image();
-    head.src = 'head.png';    
+    head.src = 'img/head.png';
     
     ball = new Image();
-    ball.src = 'dot.png'; 
+    ball.src = 'img/dot.png';
     
     apple = new Image();
-    apple.src = 'apple.png'; 
+    apple.src = 'img/apple.png';
 }
 
 // Fonction permettant de créer le serpent
