@@ -19,3 +19,5 @@
 - Canvas: https://www.w3schools.com/html/html5_canvas.asp
 - Context d'un canvas: https://developer.mozilla.org/fr/docs/Web/API/HTMLCanvasElement/getContext
 - Button CSS: https://www.w3schools.com/css/css3_buttons.asp
+- Draw image: https://developer.mozilla.org/fr/docs/Web/API/CanvasRenderingContext2D/drawImage
+
