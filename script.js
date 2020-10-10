@@ -9,7 +9,7 @@ var ctx;
 // Variables des éléments visuels
 var head;
 var target;
-var sqare;
+var square;
 var obstacle;
 
 var bodySize;
@@ -83,8 +83,8 @@ function loadImages() {
     head = new Image();
     head.src = 'img/head.png';
     
-    sqare = new Image();
-    sqare.src = 'img/square.png';
+    square = new Image();
+    square.src = 'img/square.png';
 
     target = new Image();
     target.src = 'img/head-cat-40.png';
@@ -122,7 +122,7 @@ function doDrawing() {
             if (z == 0) {
                 ctx.drawImage(head, x[z], y[z]);
             } else {
-                ctx.drawImage(sqare, x[z], y[z]);
+                ctx.drawImage(square, x[z], y[z]);
             }
         }    
     } else {
@@ -293,5 +293,10 @@ onkeydown = function(e) {
         downDirection = true;
         rightDirection = false;
         leftDirection = false;
-    }        
+    }
+
+    //Si on est GAME OVER, il suffit de cliquer sur une des flèches du clavier pour relancer une partie
+    if (!inGame && (key == DOWN_KEY || key == UP_KEY || key == RIGHT_KEY || key == LEFT_KEY)) {
+        restartGame();
+    }
 };    
