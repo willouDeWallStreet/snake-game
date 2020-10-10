@@ -11,7 +11,7 @@ var head;
 var target;
 var ball;
 var head;
-var trump;
+var obstacle;
 
 var bodySize;
 var target_x;
