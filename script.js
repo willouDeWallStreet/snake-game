@@ -10,7 +10,6 @@ var ctx;
 var head;
 var target;
 var ball;
-var head;
 var obstacle;
 
 var bodySize;
