@@ -7,13 +7,14 @@
 - Une target et un obstacle
 - Relancer le jeu quand on clique sur une flèche du clavier
 
-## Idées pour le snake-game
+## Idées d'amélioration pour le snake-game
 
 - Agrandir la fenêtre de jeu
-- Changer la tête du snake à chaque dizaine de score
 - Changer le message "Game over"
-- Sound effect
+- Ajouter des sound effect
 - Faire un spawn du serpent aléatoire
+- Ajouter Bootstrap 4
+- Ajouter un obstacle à chaque dizaine de score
 
 ## Sources
 
