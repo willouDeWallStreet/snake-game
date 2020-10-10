@@ -5,6 +5,7 @@
 - Affichage du "SCORE"
 - Affichage du "HIGH SCORE"
 - Une target et un obstacle
+- Relancer le jeu quand on clique sur une flèche du clavier
 
 ## Idées pour le snake-game
 
@@ -13,7 +14,6 @@
 - Changer le message "Game over"
 - Sound effect
 - Faire un spawn du serpent aléatoire
-- Relancer le jeu quand on clique sur une flèche du clavier
 
 ## Sources
 
