@@ -21,3 +21,6 @@
 - Button CSS: https://www.w3schools.com/css/css3_buttons.asp
 - Draw image: https://developer.mozilla.org/fr/docs/Web/API/CanvasRenderingContext2D/drawImage
 
+###Documentation
+
+- Les "console.log" permettent d'afficher des variables JS dans la console de debug du navigateur. Pour voir la console de debug du navigateur, tu dois faire F12 et aller dans l'onglet "console".

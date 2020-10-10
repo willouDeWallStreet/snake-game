@@ -1,3 +1,8 @@
+html {
+    min-height: 100vh;
+    min-width: 100vh;
+}
+
 body {
     background-image: url("img/retro-gaming-background-1.jpg");
     background-position: center;
@@ -11,20 +16,22 @@ canvas {
     border:2px solid red;
 }
 
-#myDiv1 {
-    margin-left: 34%;
-    margin-top: 15%;
-}
-
 #myDiv2 {
-    margin-top: -100px;
-    margin-bottom: 5%;
-
     color: #fff;
     font-size:25px;
     font-weight:bold;
     font-family: 'Josefin Sans', sans-serif;
     text-shadow: 1px 1px 0px #111, 2px 2px 0px rgba(54, 54, 54, 0.5);
+}
+
+#myDiv1 {
+    margin-left: 34%;
+    margin-top: 5%;
+}
+
+#myDiv3 {
+    margin-left: 45%;
+    margin-top: 3%;
 }
 
 #divScore {
@@ -40,14 +47,9 @@ canvas {
     margin-right: 5%;
 }
 
-#myDiv3 {
-    margin-left: 45%;
-    margin-top: 3%;
-}
-
 .button {
-    background-color: #151df4;/*15f4ee*/
-    border:2px solid #15f4ee;/*151df4*/
+    background-color: #151df4;
+    border:2px solid #15f4ee;
     border-radius: 15%;
     color: #15f4ee;
     font-weight: bold;

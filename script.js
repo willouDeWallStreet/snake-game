@@ -8,12 +8,16 @@ var ctx;
 
 // Variables des éléments visuels
 var head;
-var apple;
+var target;
 var ball;
+var pacman;
+var trump;
 
 var bodySize;
-var apple_x;
-var apple_y;
+var target_x;
+var target_y;
+var obstacle_x;
+var obstacle_y;
 
 // Boolean permettant de savoir si on est en train:
 var leftDirection = false; // de descendre (downDirection=true, tous les autres à false),
@@ -58,7 +62,8 @@ function init() {
 
     loadImages();
     createSnake();
-    positionApple();
+    positionTarget();
+    positionObstacle();
     setTimeout("gameCycle()", DELAY);
 }
 
@@ -76,9 +81,15 @@ function loadImages() {
     
     ball = new Image();
     ball.src = 'img/dot.png';
-    
-    apple = new Image();
-    apple.src = 'img/apple.png';
+
+    target = new Image();
+    target.src = 'img/head-cat-40.png';
+
+    pacman = new Image();
+    pacman.src = 'img/head.png';
+
+    trump = new Image();
+    trump.src = 'img/dinausore-50.png';
 }
 
 // Fonction permettant de créer le serpent
@@ -93,17 +104,19 @@ function createSnake() {
 
 // Fonction permettant de dessiner chaque élément du jeu
 function doDrawing() {
-    // On vide le rectangle où on joue
+    // On vide le canvas
     ctx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
     
     if (inGame) {
-        // On dessine la nouvelle pomme
-        ctx.drawImage(apple, apple_x, apple_y);
+        // On dessine la target
+        ctx.drawImage(target, target_x, target_y);
+        // On dessine l'obstacle
+        ctx.drawImage(trump, obstacle_x, obstacle_y);
 
         // Ici on dessine le serpent
         for (var z = 0; z < bodySize; z++) {
             if (z == 0) {
-                ctx.drawImage(head, x[z], y[z]);
+                ctx.drawImage(pacman, x[z], y[z]);
             } else {
                 ctx.drawImage(ball, x[z], y[z]);
             }
@@ -115,10 +128,10 @@ function doDrawing() {
 
 // Fonction permettant d'afficher le message "Game over"
 function gameOver() {
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = 'red';
     ctx.textBaseline = 'middle'; 
     ctx.textAlign = 'center'; 
-    ctx.font = 'normal bold 18px serif';
+    ctx.font = 'normal bold 25px serif';
 
     if (myScore > highScore) {
         highScore = myScore;
@@ -128,13 +141,24 @@ function gameOver() {
     ctx.fillText('Game over', C_WIDTH/2, C_HEIGHT/2);
 }
 
-// Fonction permettant de vérifier si on a touché une pomme avec le serpent
-function checkApple() {
-    if ((x[0] == apple_x) && (y[0] == apple_y)) {
+// Fonction permettant de vérifier si on a touché une target avec le serpent
+function checkTarget() {
+    console.log("target_x", target_x);
+    console.log("target_y", target_y);
+    console.log("x[0], y[0]", x[0], y[0]);
+    if ((target_x <= x[0] && x[0] <= target_x+35) && (target_y <= y[0] && y[0] <= target_y+35)) {
 
         bodySize++;
         myScore++;
-        positionApple();
+        positionTarget();
+    }
+}
+
+// Fonction permettant de vérifier si on a touché un obstacle avec le serpent
+function checkCollisionWithObstacle() {
+    if ((obstacle_x <= x[0] && x[0] <= obstacle_x+45) && (obstacle_y <= y[0] && y[0] <= obstacle_y+45)) {
+        inGame = false;
+        gameOver();
     }
 }
 
@@ -190,15 +214,26 @@ function checkCollision() {
     if (x[0] < 0) {
       inGame = false;
     }
+
+    checkCollisionWithObstacle();
 }
 
-// Permet de positionner aléatoirement une pomme dans le jeu
-function positionApple() {
+// Permet de positionner aléatoirement une target dans le jeu
+function positionTarget() {
     var r = Math.floor(Math.random() * MAX_RAND);
-    apple_x = r * DOT_SIZE;
+    target_x = r * DOT_SIZE;
 
     r = Math.floor(Math.random() * MAX_RAND);
-    apple_y = r * DOT_SIZE;
+    target_y = r * DOT_SIZE;
+}
+
+// Permet de positionner aléatoirement un obstacle dans le jeu
+function positionObstacle() {
+    var randomPosition = Math.floor(Math.random() * MAX_RAND);
+    obstacle_x = randomPosition * DOT_SIZE;
+
+    randomPosition = Math.floor(Math.random() * MAX_RAND);
+    obstacle_y = randomPosition * DOT_SIZE;
 }
 
 // Fonction permettant d'afficher le score
@@ -215,7 +250,7 @@ function displayHighScore() {
 // (c'est-à-dire, tant que ce n'est pas "Game over")
 function gameCycle() {
     if (inGame) {
-        checkApple();
+        checkTarget();
         checkCollision();
         move();
         doDrawing();
