@@ -1,17 +1,17 @@
 
 # Features
 
-- faire un background avec une image retro gaming qui prend toute la place
-- au milieu un écran noir avec un contour (ce qui sera l'interface du jeu)
-- sur le côté, indiquer le score
-- en dessous indiquer le "high score"
+- Background avec une image retro gaming
+- Affichage du "SCORE"
+- Affichage du "HIGH SCORE"
+- Une target et un obstacle
 
 ## Idées pour le snake-game
 
-- agrandir la fenêtre de jeu
-- changer la tête du snake à chaque dizaine de score
-- changer le message "Game over"
-- sound effect
+- Agrandir la fenêtre de jeu
+- Changer la tête du snake à chaque dizaine de score
+- Changer le message "Game over"
+- Sound effect
 
 ## Sources
 
