@@ -9,7 +9,7 @@ var ctx;
 // Variables des éléments visuels
 var head;
 var target;
-var ball;
+var sqare;
 var obstacle;
 
 var bodySize;
@@ -27,7 +27,7 @@ var downDirection = false; // d'aller sur la droite (rightDirection, tous les au
 // Variable pour savoir si on a perdu (on joue --> inGame=true; on perd --> inGame=false)
 var inGame = true;    
 
-const DOT_SIZE = 10;
+const SQUARE_SIZE = 10;
 const MAX_SIZE = 900;
 const MAX_RAND = 29;
 const DELAY = 140;
@@ -78,8 +78,8 @@ function loadImages() {
     head = new Image();
     head.src = 'img/head.png';
     
-    ball = new Image();
-    ball.src = 'img/dot.png';
+    sqare = new Image();
+    sqare.src = 'img/square.png';
 
     target = new Image();
     target.src = 'img/head-cat-40.png';
@@ -117,7 +117,7 @@ function doDrawing() {
             if (z == 0) {
                 ctx.drawImage(head, x[z], y[z]);
             } else {
-                ctx.drawImage(ball, x[z], y[z]);
+                ctx.drawImage(sqare, x[z], y[z]);
             }
         }    
     } else {
@@ -164,25 +164,27 @@ function checkCollisionWithObstacle() {
 
 //Fonction qui affiche le mouvement du serpent
 function move() {
+    //Chaque élément du corp (sauf la tête) avance en se plaçant à la place de l'élément qui est devant lui
     for (var z = bodySize; z > 0; z--) {
         x[z] = x[(z - 1)];
         y[z] = y[(z - 1)];
     }
 
+    //La tête avance d'une distance de SQUARE_SIZE=10 (l'équivalent de sa taille)
     if (leftDirection) {
-        x[0] -= DOT_SIZE;
+        x[0] -= SQUARE_SIZE;
     }
 
     if (rightDirection) {
-        x[0] += DOT_SIZE;
+        x[0] += SQUARE_SIZE;
     }
 
     if (upDirection) {
-        y[0] -= DOT_SIZE;
+        y[0] -= SQUARE_SIZE;
     }
 
     if (downDirection) {
-        y[0] += DOT_SIZE;
+        y[0] += SQUARE_SIZE;
     }
 }    
 
@@ -221,19 +223,19 @@ function checkCollision() {
 // Permet de positionner aléatoirement une target dans le jeu
 function positionTarget() {
     var r = Math.floor(Math.random() * MAX_RAND);
-    target_x = r * DOT_SIZE;
+    target_x = r * SQUARE_SIZE;
 
     r = Math.floor(Math.random() * MAX_RAND);
-    target_y = r * DOT_SIZE;
+    target_y = r * SQUARE_SIZE;
 }
 
 // Permet de positionner aléatoirement un obstacle dans le jeu
 function positionObstacle() {
     var randomPosition = Math.floor(Math.random() * MAX_RAND);
-    obstacle_x = randomPosition * DOT_SIZE;
+    obstacle_x = randomPosition * SQUARE_SIZE;
 
     randomPosition = Math.floor(Math.random() * MAX_RAND);
-    obstacle_y = randomPosition * DOT_SIZE;
+    obstacle_y = randomPosition * SQUARE_SIZE;
 }
 
 // Fonction permettant d'afficher le score
