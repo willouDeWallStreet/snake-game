@@ -10,7 +10,7 @@ var ctx;
 var head;
 var target;
 var ball;
-var pacman;
+var head;
 var trump;
 
 var bodySize;
@@ -85,11 +85,11 @@ function loadImages() {
     target = new Image();
     target.src = 'img/head-cat-40.png';
 
-    pacman = new Image();
-    pacman.src = 'img/head.png';
+    head = new Image();
+    head.src = 'img/head.png';
 
-    trump = new Image();
-    trump.src = 'img/dinausore-50.png';
+    obstacle = new Image();
+    obstacle.src = 'img/dinausore-50.png';
 }
 
 // Fonction permettant de créer le serpent
@@ -111,12 +111,12 @@ function doDrawing() {
         // On dessine la target
         ctx.drawImage(target, target_x, target_y);
         // On dessine l'obstacle
-        ctx.drawImage(trump, obstacle_x, obstacle_y);
+        ctx.drawImage(obstacle, obstacle_x, obstacle_y);
 
         // Ici on dessine le serpent
         for (var z = 0; z < bodySize; z++) {
             if (z == 0) {
-                ctx.drawImage(pacman, x[z], y[z]);
+                ctx.drawImage(head, x[z], y[z]);
             } else {
                 ctx.drawImage(ball, x[z], y[z]);
             }
@@ -151,6 +151,7 @@ function checkTarget() {
         bodySize++;
         myScore++;
         positionTarget();
+        positionObstacle();
     }
 }
 
