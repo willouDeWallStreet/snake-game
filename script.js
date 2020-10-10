@@ -27,18 +27,23 @@ var downDirection = false; // d'aller sur la droite (rightDirection, tous les au
 // Variable pour savoir si on a perdu (on joue --> inGame=true; on perd --> inGame=false)
 var inGame = true;    
 
-const SQUARE_SIZE = 10;
-const MAX_SIZE = 900;
-const MAX_RAND = 29;
-const DELAY = 140;
-const C_HEIGHT = 300;
-const C_WIDTH = 400;
+//Taille de chaque élément du serpent
+var SQUARE_SIZE_WITH_MARGIN = 12;
+var SQUARE_SIZE = 10;
+//Taille maximale du serpent
+var MAX_SIZE = 999;
+var MAX_WIDTH_RAND = 38;
+var MAX_HEIGHT_RAND = 28;
+var DELAY = 140;
+//Taille du terrain de jeu
+var C_HEIGHT = 300;
+var C_WIDTH = 400;
 
 // Code ASCII correspondant aux touches haut, bas, gauche et droite du clavier
-const LEFT_KEY = 37;
-const RIGHT_KEY = 39;
-const UP_KEY = 38;
-const DOWN_KEY = 40;
+var LEFT_KEY = 37;
+var RIGHT_KEY = 39;
+var UP_KEY = 38;
+var DOWN_KEY = 40;
 
 // Deux listes, x représente la taille horizontale en pixel et y représente la taille verticale en pixel
 // x[0]=la tête; x[1]=la 1ère partie du corps; x[2]=la 2ième partie du corps; ...
@@ -91,12 +96,12 @@ function loadImages() {
     obstacle.src = 'img/dinausore-50.png';
 }
 
-// Fonction permettant de créer le serpent
+// Fonction permettant de créer le serpent et de définir où on spawn
 function createSnake() {
     bodySize = 3;
 
     for (var bodyIndex = 0; bodyIndex < bodySize; bodyIndex++) {
-        x[bodyIndex] = 50 - bodyIndex * 10;
+        x[bodyIndex] = 50 - bodyIndex * SQUARE_SIZE_WITH_MARGIN;
         y[bodyIndex] = 50;
     }
 }
@@ -170,21 +175,21 @@ function move() {
         y[z] = y[(z - 1)];
     }
 
-    //La tête avance d'une distance de SQUARE_SIZE=10 (l'équivalent de sa taille)
+    //La tête avance d'une distance de SQUARE_SIZE_WITH_MARGIN=12 (l'équivalent de sa taille)
     if (leftDirection) {
-        x[0] -= SQUARE_SIZE;
+        x[0] -= SQUARE_SIZE_WITH_MARGIN;
     }
 
     if (rightDirection) {
-        x[0] += SQUARE_SIZE;
+        x[0] += SQUARE_SIZE_WITH_MARGIN;
     }
 
     if (upDirection) {
-        y[0] -= SQUARE_SIZE;
+        y[0] -= SQUARE_SIZE_WITH_MARGIN;
     }
 
     if (downDirection) {
-        y[0] += SQUARE_SIZE;
+        y[0] += SQUARE_SIZE_WITH_MARGIN;
     }
 }    
 
@@ -222,20 +227,20 @@ function checkCollision() {
 
 // Permet de positionner aléatoirement une target dans le jeu
 function positionTarget() {
-    var r = Math.floor(Math.random() * MAX_RAND);
-    target_x = r * SQUARE_SIZE;
+    var randomPositionFactor = Math.floor(Math.random() * MAX_WIDTH_RAND);
+    target_x = randomPositionFactor * SQUARE_SIZE; //Au max on aura randomPositionFactor=39 && SQUARE_SIZE=10 donc target_x=390
 
-    r = Math.floor(Math.random() * MAX_RAND);
-    target_y = r * SQUARE_SIZE;
+    randomPositionFactor = Math.floor(Math.random() * MAX_HEIGHT_RAND);
+    target_y = randomPositionFactor * SQUARE_SIZE; //Au max on aura randomPositionFactor=29 && SQUARE_SIZE=10 donc target_y=290
 }
 
 // Permet de positionner aléatoirement un obstacle dans le jeu
 function positionObstacle() {
-    var randomPosition = Math.floor(Math.random() * MAX_RAND);
-    obstacle_x = randomPosition * SQUARE_SIZE;
+    var randomPositionFactor = Math.floor(Math.random() * MAX_WIDTH_RAND);
+    obstacle_x = randomPositionFactor * SQUARE_SIZE;
 
-    randomPosition = Math.floor(Math.random() * MAX_RAND);
-    obstacle_y = randomPosition * SQUARE_SIZE;
+    randomPositionFactor = Math.floor(Math.random() * MAX_HEIGHT_RAND);
+    obstacle_y = randomPositionFactor * SQUARE_SIZE;
 }
 
 // Fonction permettant d'afficher le score
