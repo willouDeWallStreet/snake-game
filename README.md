@@ -12,6 +12,8 @@
 - Changer la tête du snake à chaque dizaine de score
 - Changer le message "Game over"
 - Sound effect
+- Faire un spawn du serpent aléatoire
+- Relancer le jeu quand on clique sur une flèche du clavier
 
 ## Sources
 
