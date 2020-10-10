@@ -6,14 +6,14 @@
 - sur le côté, indiquer le score
 - en dessous indiquer le "high score"
 
-##Idées pour le snake-game
+## Idées pour le snake-game
 
 - agrandir la fenêtre de jeu
 - changer la tête du snake à chaque dizaine de score
 - changer le message "Game over"
 - sound effect
 
-##Sources
+## Sources
 
 - Image en JS: https://developer.mozilla.org/fr/docs/Web/API/HTMLImageElement/Image
 - Canvas: https://www.w3schools.com/html/html5_canvas.asp
@@ -21,6 +21,6 @@
 - Button CSS: https://www.w3schools.com/css/css3_buttons.asp
 - Draw image: https://developer.mozilla.org/fr/docs/Web/API/CanvasRenderingContext2D/drawImage
 
-###Documentation
+## Documentation
 
 - Les "console.log" permettent d'afficher des variables JS dans la console de debug du navigateur. Pour voir la console de debug du navigateur, tu dois faire F12 et aller dans l'onglet "console".
